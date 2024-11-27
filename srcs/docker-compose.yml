@@ -5,14 +5,14 @@ volumes:
     driver: local
     driver_opts:
       device: ~/data/mariadb
-      o : bind
+      o: bind
       type : none
   wordpress:
     name: wordpress
     driver: local
     driver_opts:
       device: ~/data/wordpress
-      o : bind
+      o: bind
       type : none
 
 networks:
@@ -27,9 +27,9 @@ services:
     build: ./requirements/mariadb
     volumes:
       - mariadb:/var/lib/mysql # dossier cible pour les donnees
-    env_file :
+    env_file:
       - .env
-    networks :
+    networks:
       - inception
     restart: always
 #nginx
@@ -43,6 +43,8 @@ services:
       - wordpress
     volumes:
       - wordpress:/var/www/wordpress
+    env_file:
+      - .env
     networks:
       - inception
     restart: always
@@ -55,7 +57,7 @@ services:
       - mariadb
     volumes:
       - wordpress:/var/www/wordpress
-    env_file :
+    env_file:
       - .env
     networks:
       - inception

@@ -3,12 +3,13 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bvaujour <bvaujour@student.42.fr>          +#+  +:+       +#+         #
+#    By: injah <injah@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/11/25 13:53:51 by bvaujour          #+#    #+#              #
-#    Updated: 2024/11/25 13:53:54 by bvaujour         ###   ########.fr        #
+#    Created: 2024/11/27 14:48:46 by injah             #+#    #+#              #
+#    Updated: 2024/11/27 14:48:47 by injah            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 WP_DATA = ~/data/wordpress
 DB_DATA = ~/data/mariadb
@@ -16,25 +17,26 @@ DB_DATA = ~/data/mariadb
 all: up
 
 up: build
+	@sudo chmod 666 /var/run/docker.sock
 	@mkdir -p $(WP_DATA)
 	@mkdir -p $(DB_DATA)
-	docker compose -f ./srcs/docker-compose.yml up -d
+	@docker compose -f ./srcs/docker-compose.yml up -d
 
 down:
-	docker compose -f ./srcs/docker-compose.yml down
+	@docker compose -f ./srcs/docker-compose.yml down
 
 stop:
-	docker compose -f ./srcs/docker-compose.yml stop
+	@docker compose -f ./srcs/docker-compose.yml stop
 
 start:
-	docker compose -f ./srcs/docker-compose.yml start
+	@docker compose -f ./srcs/docker-compose.yml start
 
 build: copy-env
-	clear
-	docker compose -f ./srcs/docker-compose.yml build
+	@clear
+	@docker compose -f ./srcs/docker-compose.yml build
 
 copy-env:
-	cp /home/bvaujour/.env $(shell pwd)/srcs
+	@cp $(HOME)/.env $(shell pwd)/srcs
 
 ng:
 	@docker exec -it nginx zsh

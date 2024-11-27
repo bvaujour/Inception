@@ -1,13 +1,13 @@
 FROM debian:bullseye
 
 RUN apt-get update && apt-get upgrade -y
-RUN apt-get install -y nginx openssl
+RUN apt-get install -y zsh nginx openssl
 
 # SSL
 RUN mkdir -p /etc/nginx/ssl
-RUN openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt -keyout /etc/nginx/ssl/inception.key -subj "/C=FR/ST=IDF/L=Paris/O=42/OU=42/CN=mablatie.42.fr/UID=mablatie"
+RUN openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt -keyout /etc/nginx/ssl/inception.key -subj "/C=FR/ST=IDF/L=Paris/O=42/OU=42/CN=bvaujour.42.fr/UID=bvaujour"
 #-x509 = certificat auto signe au lieu d'une request / -nodes = creation auto sans mdp / 
-# -out -keyout = la ou on stock les fichiers correspond au certif et la cle / -subj = permet de rajouter les informations necessaires demander lors de l'exec de openssl pour le certificat TSL
+# -out -keyout = la ou on stock les fichiers correspond au certif et la cle / -subj = permet de rajouter les informations necessaires demandees lors de l'exec de openssl pour le certificat TSL
 
 # Copy de la config nginx dans l'image
 COPY conf/nginx.conf /etc/nginx/nginx.conf
