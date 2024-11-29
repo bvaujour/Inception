@@ -6,7 +6,7 @@
 #    By: injah <injah@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 14:48:46 by injah             #+#    #+#              #
-#    Updated: 2024/11/27 14:48:47 by injah            ###   ########.fr        #
+#    Updated: 2024/11/29 10:30:07 by injah            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ DB_DATA = ~/data/mariadb
 all: up
 
 up: build
-	@sudo chmod 666 /var/run/docker.sock
 	@mkdir -p $(WP_DATA)
 	@mkdir -p $(DB_DATA)
 	@docker compose -f ./srcs/docker-compose.yml up -d
@@ -32,6 +31,7 @@ start:
 	@docker compose -f ./srcs/docker-compose.yml start
 
 build: copy-env
+	@sudo chmod 666 /var/run/docker.sock
 	@clear
 	@docker compose -f ./srcs/docker-compose.yml build
 
